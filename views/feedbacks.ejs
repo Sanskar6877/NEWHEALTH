@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RESPONSIVE FEEDBACK FORM </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+    <style>
+        body {
+            margin: 0 auto;
+            background-color: rgb(243, 249, 252);
+        }
+        
+        div.formContainer {
+            margin: 4em auto 4em auto;
+            width: 80%;
+            color: rgb(13, 29, 203);
+            border: 1px solid #3f33c8 ;
+            border-radius: 2px;
+        }
+        
+        div.heading {
+            margin: 0 auto 0 auto;
+            width: 100%;
+            padding: 1em 0 1em 0;
+            letter-spacing: 0.1em;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-bottom: 1px solid #3f33c8 ;
+            text-align: center;
+            background-color: #3f33c8 ;
+            color: white;
+        }
+        
+        div.description {
+            padding: 1em 0 1em 0;
+            width: 80%;
+            margin: 0 auto 0 auto;
+            text-align: center;
+        }
+        
+        div.form {
+            margin: 0 auto 0 auto;
+            width: 100%;
+        }
+        
+        div.form form {
+            margin: 0 auto 0 auto;
+            width: 80%;
+        }
+        
+        div.form label {
+            display: block;
+            width: 80%;
+            margin: 1em auto 1em auto;
+            outline: none;
+            color: #3f33c8 ;
+            font-weight: bolder;
+            letter-spacing: 0.1;
+        }
+        
+        div.form input {
+            display: block;
+            width: 80%;
+            margin: 1em auto 1em auto;
+            outline: none;
+            color: #3f33c8 ;
+            padding: 1.2em 0 1em 1.2em;
+            background-color: white;
+            border: 0.5px solid #3f33c8 ;
+        }
+        
+        div.form textarea {
+            display: block;
+            width: 80%;
+            margin: 1em auto 1em auto;
+            outline: none;
+            color: #3f33c8 ;
+            padding: 1.2em 0 1em 1.2em;
+            background-color: white;
+            border: 0.5px solid #3f33c8 ;
+            height: 8em;
+            resize: none;
+        }
+        
+        div.form button {
+            outline: none;
+            margin: 2em auto 2em auto;
+            padding: 2em;
+            cursor: pointer;
+            border: none;
+            display: block;
+            width: 60%;
+            text-align: center;
+            border: 1px solid #3f33c8 ;
+        }
+        
+        div.form input:active,
+        div.form input:focus,
+        div.form select:active,
+        div.form select:focus,
+        div.form textarea:active,
+        div.form textarea:focus,
+        div.form button:active,
+        div.form button:hover {
+            box-shadow: 0 0 2px 2px white;
+        }
+        
+        div.form button {
+            background-color: white;
+            color: #3f33c8 ;
+            font-weight: bolder;
+            transition: all 0.2s linear;
+        }
+        
+        @keyframes status {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        div.statusActive {
+            display: block;
+            width: 80%;
+            margin: 1em auto 1em auto;
+            padding: 1.2em 0 1em 1.2em;
+            background-color: #3f33c8 ;
+            color: white;
+            text-align: center;
+            animation-name: status;
+            animation-duration: 0.3s;
+            transition: all 0.2s linear;
+        }
+        
+        div.loadingActive {
+            width: 90%;
+            margin: 4em auto 4em auto;
+            grid-template-columns: 33.3% 33.3% 33.3%;
+            display: grid;
+            transition: all linear 0.2s;
+        }
+        
+        div.loadingActive div {
+            padding: 0.5em;
+            background-color: #3f33c8 ;
+            animation-name: rotatingDiv;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes rotatingDiv {
+            from {
+                transform: rotate(-180deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @media only screen and (min-width: 1224px) {
+            div.formContainer {
+                width: 500px;
+            }
+        }
+        
+        @media only screen and (min-width: 1824px) {
+            div.formContainer {
+                width: 500px;
+            }
+        }
+        
+        @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+            div.formContainer {
+                width: 80%;
+            }
+        }
+        *{
+margin: 0;
+padding: 0;
+}
+.rate {
+float: left;
+height: 46px;
+padding: 0 10px;
+}
+.rate:not(:checked) > input {
+position:absolute;
+top:-9999px;
+}
+.rate:not(:checked) > label {
+float:right;
+width:1em;
+overflow:hidden;
+white-space:nowrap;
+cursor:pointer;
+font-size:30px;
+color:#ccc;
+}
+.rate:not(:checked) > label:before {
+content: '★ ';
+}
+.rate > input:checked ~ label {
+color:  #3f33c8 ;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+color: #3f33c8;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+color: #3f33c8;
+}
+form .btn {
+outline: none;
+border: none;
+cursor: pointer;
+display: inline-block;
+margin: 0 auto;
+padding: 0.9rem 2.5rem;
+text-align: center;
+background-color: #272eb1;
+color: #fff;
+border-radius: 4px;
+box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+font-size: 17px;
+height: 5px;
+}
+    </style>
+     <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+    #bg {
+      background-color: rgb(91, 161, 232);
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      filter: blur(5px);
+    }
+    
+    body {
+      font-family: 'Lato', sans-serif;
+      color: #4A4A4A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    
+    form {
+      width: 350px;
+      position: relative;
+    }
+    form .form-field::before {
+      font-size: 20px;
+      position: absolute;
+      left: 15px;
+      top: 17px;
+      color: #888888;
+      content: " ";
+      display: block;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    form .form-field:nth-child(1)::before {
+      background-image: url(img/user-icon.png);
+      width: 20px;
+      height: 20px;
+      top: 15px;
+    }
+    form .form-field:nth-child(2)::before {
+      background-image: url(img/lock-icon.png);
+      width: 16px;
+      height: 16px;
+    }
+    form .form-field {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    form input {
+      font-family: inherit;
+      width: 100%;
+      outline: none;
+      background-color: #fff;
+      border-radius: 4px;
+      border: none;
+      display: block;
+      padding: 0.9rem 0.7rem;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+      font-size: 17px;
+      color: #4A4A4A;
+      text-indent: 40px;
+    }
+    form .btn {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 auto;
+      padding: 0.9rem 2.5rem;
+      text-align: center;
+      background-color: #272eb1;
+      color: #fff;
+      border-radius: 4px;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+      font-size: 11px;
+     
+    }
+    
+
+
+.rate1 {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate1:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate1:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate1:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate1 > input:checked ~ label {
+    color:  #3f33c8 ;    
+}
+.rate1:not(:checked) > label:hover,
+.rate1:not(:checked) > label:hover ~ label {
+    color: #3f33c8;  
+}
+.rate1 > input:checked + label:hover,
+.rate1 > input:checked + label:hover ~ label,
+.rate1 > input:checked ~ label:hover,
+.rate1 > input:checked ~ label:hover ~ label,
+.rate1 > label:hover ~ input:checked ~ label {
+    color: #3f33c8;
+}
+      </style>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+
+
+    <div class="formContainer" style="height: 550px; width: 400px; margin-top: 100px;">
+        <div class="heading">
+            FEEDBACK FORM 
+            <div style="margin-top: -20px; margin-left:-10px">
+           <a href="/login1/list7s/<%=data5%>/<%=e%>/<%=p%>"> <i class="fa fa-times" aria-hidden="true" style="margin-left: 380px; color:white" ></i></a>
+        </div>
+        </div>
+       
+        
+        <div class="form">
+            <form id="form" action="/login1/feedbacks/<%=data5%>/<%=e%>/<%=p%>/<%=assigneddoctor%>" method="post">
+                
+                <label for="feedback" style="margin-left: 10px;">Rate Your Exprience with the health center here:</label>
+                <div class="rate" style="margin-top: -50px;">
+                    <input type="radio" id="star5" name="rate" value="5" />
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" />
+                    <label for="star1" title="text">1 star</label>
+                  </div>
+                  <br><br>
+                  <label for="feedback" style="margin-left: 10px;">Rate for Dr.<%=assigneddoctor%></label>
+                     
+                      
+                  <div class="rate1" style="margin-top: -50px;">
+                    <input type="radio" id="star6" name="rate1" value="5" />
+                    <label for="star6" title="text">5 stars</label>
+                    <input type="radio" id="star7" name="rate1" value="4" />
+                    <label for="star7" title="text">4 stars</label>
+                    <input type="radio" id="star8" name="rate1" value="3" />
+                    <label for="star8" title="text">3 stars</label>
+                    <input type="radio" id="star9" name="rate1" value="2" />
+                    <label for="star9" title="text">2 stars</label>
+                    <input type="radio" id="star10" name="rate1" value="1" />
+                    <label for="star10" title="text">1 star</label>
+                  </div>
+                  <br><br>
+                  <label for="feedback" style="margin-left: 10px;">Give feedback for treatment of Dr.<%=assigneddoctor%> </label>
+                  <textarea name="doctorfeedback" id="feedback" style="height: 10px; margin-left: 10px;" placeholder="Type Your feedback here..."></textarea>
+                 
+                <label for="feedback" style="margin-left: 10px;">Feedback</label>
+                <textarea name="feedback" id="feedback" style="height: 10px; margin-left: 10px;" placeholder="Type Your feedback here..."></textarea>
+                <div class="form-field" >
+                   
+                    <button class="btn" type="submit" style="background-color: #3f33c8; color: white;" >Submit</button>
+                </div>
+                 
+            </form>
+        </div>
+
+        <div id="loading">
+            <div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+
+        <div id="status">
+
+        </div>
+
+    </div>
+
+   
+
+</body>
+
+</html>

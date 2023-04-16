@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invalid Credentials</title>
+    <link rel="stylesheet" href="">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(#0d6efd, #1d10d8, rgb(20, 20, 207));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup {
+            width: 400px;
+            background: #fff;
+            border-radius: 6px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            /* visibility: hidden; */
+            text-align: center;
+            padding: 0 30px 30px;
+            color: #333;
+            transition: transform 0.4s, top 0.4s;
+        }
+
+        .popup img {
+            width: 100px;
+            margin-top: -50px;
+            margin-bottom: 10px;
+            border-radius: 70%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .popup h2 {
+            font-size: 38px;
+            font-weight: 500;
+            margin: 30px 0 10px;
+
+        }
+
+        .popup button {
+            width: 70%;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding: 10px 0;
+
+            background-color: #0d6efd;
+            color: #fff;
+            border: 0;
+            outline: none;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+
+        }
+
+        .open-popup {
+            visibility: visible;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .btn {
+            padding: 10px 60px;
+            background: #fff;
+            border: 0;
+            outline: none;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: 500;
+            border-radius: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- <button type="submit" class="btn" onclick="openPopup()">Login</button> -->
+        <div class="popup" id="popup">
+            <img
+                src="data:image/png;base64,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">
+            <h2>SUCCESS</h2>
+            <br>
+            <p>Appointment Deleted successfull</p>
+
+           <form >
+            <button  type="submit" formaction="/login1/aps/<%=data5%>" style=" color:#fff; text-decoration:none ">OK</button>
+        </form>
+        </div>
+
+    </div>
+    <!-- <script>
+        let popup = document.getElementById("popup");
+        function openPopup() {
+            popup.classList.add("open-popup");
+        }
+        function removePopup() {
+            popup.classList.remove("open-popup");
+        }
+    </script> -->
+</body>
+
+</html>

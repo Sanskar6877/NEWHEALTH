@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invalid Credentials</title>
+    <link rel="stylesheet" href="">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(#0d6efd, #1d10d8, rgb(20, 20, 207));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup {
+            width: 400px;
+            background: #fff;
+            border-radius: 6px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            /* visibility: hidden; */
+            text-align: center;
+            padding: 0 30px 30px;
+            color: #333;
+            transition: transform 0.4s, top 0.4s;
+        }
+
+        .popup img {
+            width: 100px;
+            margin-top: -50px;
+            margin-bottom: 10px;
+            border-radius: 70%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .popup h2 {
+            font-size: 38px;
+            font-weight: 500;
+            margin: 30px 0 10px;
+
+        }
+
+        .popup button {
+            width: 70%;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding: 10px 0;
+
+            background-color: #0d6efd;
+            color: #fff;
+            border: 0;
+            outline: none;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+
+        }
+
+        .open-popup {
+            visibility: visible;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .btn {
+            padding: 10px 60px;
+            background: #fff;
+            border: 0;
+            outline: none;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: 500;
+            border-radius: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <!-- <button type="submit" class="btn" onclick="openPopup()">Login</button> -->
+        <div class="popup" id="popup">
+            <img
+                src="data:image/jpeg;base64,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">
+            <h2>Invalid Credentials!</h2>
+            <br>
+            <p>Wrong Email/Password! Try Again!!!</p>
+
+            <form >
+                <button  type="submit" formaction="/login1/studentlogin" style=" color:#fff; text-decoration:none ">OK</button>
+            </form>        </div>
+
+    </div>
+    <!-- <script>
+        let popup = document.getElementById("popup");
+        function openPopup() {
+            popup.classList.add("open-popup");
+        }
+        function removePopup() {
+            popup.classList.remove("open-popup");
+        }
+    </script> -->
+</body>
+
+</html>
